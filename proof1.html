@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Novel Proof of Euler's Formula: Unveiling Connections through Integration</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- MathJax 3 Configuration -->
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+    <!-- Embedded CSS for Styling -->
+    <style>
+        :root {
+            --text-color: #333;
+            --bg-color: #fff;
+            --primary-color: #0056b3;
+            --heading-font: 'Lato', sans-serif;
+            --body-font: 'Lora', serif;
+            --border-color: #ddd;
+            --abstract-bg: #f9f9f9;
+        }
+
+        body {
+            font-family: var(--body-font);
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 1.8rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.3em; }
+        h3 { font-size: 1.4rem; }
+
+        p {
+            margin-bottom: 1.2em;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Title Page Style */
+        .title-page {
+            text-align: center;
+            margin: 3rem 0;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--text-color);
+        }
+
+        .title-page h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-page .author {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Abstract Box Style */
+        .abstract {
+            background-color: var(--abstract-bg);
+            border-left: 5px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+        .abstract h3 {
+            font-style: normal;
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+
+        /* MathJax Display Math Styling */
+        mjx-container[jax="CHTML"][display="true"] {
+            margin: 1.5em 0;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 2em 0;
+        }
+
+        /* References Section */
+        .references p {
+            margin-bottom: 0.5em;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            body { font-size: 16px; }
+            main { margin: 1rem auto; }
+            h1 { font-size: 2rem; }
+            .title-page h1 { font-size: 2.2rem; }
+            h2 { font-size: 1.6rem; }
+            h3 { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <header class="title-page">
+            <h1>A Novel Proof of Euler's Formula: Unveiling Connections through Integration</h1>
+            <p class="author">Priyank Jhaveri</p>
+        </header>
+
+        <article>
+            <aside class="abstract">
+                <h3>Abstract</h3>
+                <p>
+                    This paper presents a novel proof of Euler's formula, \( e^{i\theta} = \cos(\theta) + i\sin(\theta) \), discovered through the manipulation of an integral involving \(\sqrt{x^2 - 1}\). The proof offers insights into the fundamental connections between exponential, trigonometric, and complex functions.
+                </p>
+            </aside>
+
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>
+                    Euler's formula, \( e^{i\theta} = \cos(\theta) + i\sin(\theta) \), is a fundamental result in mathematics, linking exponential, trigonometric, and complex functions. While numerous proofs exist, this paper presents a new approach discovered through the study of integration techniques. The motivation behind the exploration and the structure of the paper are outlined in this section.
+                </p>
+            </section>
+
+            <section id="main-proof">
+                <h2>Main Proof</h2>
+                <p>
+                    Consider the integral
+                    \[
+                    I = \int \frac{dx}{\sqrt{1-x^2}}.
+                    \]
+                    By applying the known antiderivative, we have \( I = -\cos^{-1}(x) \).
+                </p>
+                <p>
+                    Alternatively, we can manipulate the integral \( I \) as follows:
+                    \[
+                    I = \int \frac{dx}{\sqrt{1-x^2}} = \int \frac{dx}{\sqrt{-1 \cdot (x^2-1)}}.
+                    \]
+                    Since \( x \) lies between \(-1\) and \(1\) for the original formula to hold, \( x^2 \leq 1 \). Thus, \( x^2 - 1 \leq 0 \), which makes both the terms inside the square root negative. Therefore, we can rewrite the integral as
+                    \[
+                    I = \int \frac{dx}{-\sqrt{-1} \sqrt{x^2 - 1}}.
+                    \]
+                    \[
+                    I = -\frac{1}{i} \int \frac{dx}{\sqrt{x^2-1}}.
+                    \]
+                    \[ I = i \int \frac{dx}{\sqrt{x^2-1}} \]
+                </p>
+                <p>
+                    Ignoring the constant factor \(i\), we find
+                    \[
+                    \int \frac{dx}{\sqrt{x^2 - 1}} = \log(|x + \sqrt{x^2 - 1}|).
+                    \]
+                    Therefore, we have
+                    \[
+                    I = i \log(|x + \sqrt{x^2 - 1}|).
+                    \]
+                </p>
+                <p>
+                    Equating the expressions for \( I \) obtained using the direct formula and the manipulation, we get
+                    \[
+                    -\cos^{-1}(x) = i \log(|x + \sqrt{x^2 - 1}|).
+                    \]
+                    Multiplying both sides by \(-i\), we obtain
+                    \[
+                    i \cos^{-1}(x) = \log(|x + \sqrt{x^2 - 1}|).
+                    \]
+                    Letting \(\cos^{-1}(x) = \theta\), we have \( x = \cos(\theta) \) and \(\sqrt{1-x^2} = \sin(\theta) \). Therefore, substituting \( x \) and \(\sqrt{1-x^2}\) with \(\cos(\theta)\) and \(\sin(\theta)\) respectively, we arrive at
+                    \[
+                    i \theta = \log(|\cos(\theta) + i\sin(\theta)|).
+                    \]
+                    Exponentiating both sides, we finally obtain Euler's formula:
+                    \[
+                    e^{i\theta} = \cos(\theta) + i\sin(\theta).
+                    \]
+                </p>
+                <hr>
+                <p>
+                    If we instead consider the integral as
+                    \[
+                    I = \sin^{-1}(x),
+                    \]
+                    we proceed similarly:
+                    \[
+                    I = \int \frac{dx}{\sqrt{1-x^2}} = \sin^{-1}(x).
+                    \]
+                    Equating this with our previous result, we have
+                    \[
+                    \sin^{-1}(x) = i \log(|x + \sqrt{x^2 - 1}|).
+                    \]
+                    Letting \(\sin^{-1}(x) = \theta\), we have \( x = \sin(\theta) \) and \(\sqrt{1-x^2} = \cos(\theta) \). Thus,
+                    \[
+                    i \theta = \log(|\sin(\theta) + i\cos(\theta)|).
+                    \]
+                    Exponentiating both sides, we obtain the modified form of Euler's formula:
+                    \[
+                    e^{-i\theta} = \sin(\theta) + i\cos(\theta).
+                    \]
+                </p>
+                <hr>
+                <p>
+                    The derivative of \( -\cos^{-1}(x) \) is \( \frac{1}{\sqrt{1-x^2}} \).
+                </p>
+                <p>
+                    Now, consider the function
+                    \[
+                    f(x) = \log(|x + \sqrt{x^2 - 1}|).
+                    \]
+                </p>
+                <p>
+                    The derivative of \( f(x) \) can be computed using the chain rule:
+                    \[
+                    f'(x) = \frac{1}{x + \sqrt{x^2 - 1}} \cdot \frac{d}{dx}(x + \sqrt{x^2 - 1}).
+                    \]
+                    Calculating the derivative inside the parentheses,
+                    \[
+                    \frac{d}{dx}(x + \sqrt{x^2 - 1}) = 1 + \frac{x}{\sqrt{x^2 - 1}}.
+                    \]
+                    Therefore,
+                    \[
+                    f'(x) = \frac{1}{x + \sqrt{x^2 - 1}} \left( 1 + \frac{x}{\sqrt{x^2 - 1}} \right) = \frac{1}{\sqrt{x^2 - 1}}.
+                    \]
+                    We can write it also as -
+                    \[
+                    \frac{1}{\sqrt{x^2-1}} = \frac{1}{\sqrt{-1 \cdot (1-x^2)}}.
+                    \]
+                    Since \( x \) lies between \(-1\) and \(1\) for the original formula to hold (output real numbers), therefore \( x^2 \leq 1 \). Thus, \( 1 - x^2\geq 0 \). Therefore, we can rewrite it as
+                    \[
+                    \frac{1}{-\sqrt{-1} \sqrt{1 - x^2}}.
+                    \]
+                    \[
+                    = -\frac{1}{i} \int \frac{1}{\sqrt{1 - x^2}}.
+                    \]
+                    \[= i\frac{1}{\sqrt{1-x^2}} \]
+                </p>
+                <p>
+                    So the derivative of \( -\cos^{-1}(x) \) is \( i \) times the derivative of \( \log(x + \sqrt{x^2 - 1}) \). Integrating both sides gives:
+                    \[
+                    -\cos^{-1}(x) = i \log(|x + \sqrt{x^2 - 1}|),
+                    \]
+                    Multiplying both sides by \(-i\), we obtain
+                    \[
+                    i \cos^{-1}(x) = \log(|x + \sqrt{x^2 - 1}|).
+                    \]
+                    Letting \(\cos^{-1}(x) = \theta\), we have \( x = \cos(\theta) \) and \(\sqrt{1-x^2} = \sin(\theta) \). Therefore, substituting \( x \) and \(\sqrt{1-x^2}\) with \(\cos(\theta)\) and \(\sin(\theta)\) respectively, we arrive at
+                    \[
+                    i \theta = \log(|\cos(\theta) + i\sin(\theta)|).
+                    \]
+                    Exponentiating both sides, we finally obtain Euler's formula:
+                    \[
+                    e^{i\theta} = \cos(\theta) + i\sin(\theta).
+                    \]
+                </p>
+                <p>
+                    This completes the proof using derivatives.
+                </p>
+            </section>
+
+            <section id="discussion">
+                <h2>Discussion</h2>
+                <p>
+                    The significance of the new proof and its implications are discussed in this section. A comparison with existing proofs in the literature is provided, highlighting the novelty and potential advantages of the proposed approach. Limitations and areas for further research are also addressed.
+                </p>
+                <p>
+                    The reason why \( e^{i\theta} = \sin(\theta) + i\cos(\theta) \) appears is rooted in the periodic and rotational symmetry of trigonometric functions. By considering \( \sin^{-1}(x) \) instead of \( \cos^{-1}(x) \), we essentially rotate the perspective of the unit circle representation of Euler's formula. Since \(\sin(\theta)\) and \(\cos(\theta)\) are phase-shifted by \(\frac{\pi}{2}\), their roles in the formula change correspondingly, demonstrating the inherent symmetry in Euler's identity and trigonometric relationships.
+                </p>
+            </section>
+
+            <section id="geometric-interpretation-1">
+                <h2>Geometric Interpretation</h2>
+                <p>
+                    To understand the geometric interpretation, we should be aware that there are two kinds of angles: linear and rotational. We refer to the work of Boyajian for a detailed study on this, which can be cited as <a href="#ref-boyajian">[Boyajian]</a>.
+                </p>
+                <p>
+                    The fundamental identity for the hyperbolic cosine function is given by:
+                    \[
+                    \cosh(x) = \frac{e^x + e^{-x}}{2}
+                    \]
+                    This represents a linear angle. However, when we substitute \(x\) with \(ix\) (where \(i\) is the imaginary unit), due to \(i\)'s property of rotating by 90 degrees, the angle transitions from a linear to a rotational angle. Thus, we have:
+                    \[
+                    \cosh(ix) = \cos(x) = \frac{e^{ix} + e^{-ix}}{2}
+                    \]
+                    If we plot this, we get the graph of the cosine function. Similarly, if we plot the original hyperbolic cosine function, we get the graph of \(\cosh\).
+                </p>
+                <p>
+                    We can use a single formula to plot both functions on a special type of graph:
+                    \[
+                    \cosh(x) = \frac{e^x + e^{-x}}{2}
+                    \]
+                    In this graph, the \(X\)-axis represents real inputs, the \(Z\)-axis represents imaginary inputs, and the \(Y\)-axis represents real outputs (since in both cases we obtain real outputs).
+                </p>
+                <p>
+                    Similarly, we can plot their inverse functions. The graph of \(-\cos^{-1}(x)\) is well-known. The inverse of the hyperbolic cosine function is given by:
+                    To find the inverse of the function \( f(x) = \frac{e^x + e^{-x}}{2} \), we need to express \( x \) in terms of \( y \) where \( y = f(x) \).
+                    \[\begin{aligned}
+                    y &= \frac{e^x + e^{-x}}{2} \\
+                    2y &= e^x + e^{-x} \\
+                    2ye^x &= e^{2x} + 1 \\
+                    e^{2x} - 2ye^x + 1 &= 0
+                    \end{aligned}\]
+                    Let \( u = e^x \). The equation becomes:
+                    \[
+                    u^2 - 2yu + 1 = 0
+                    \]
+                    Solve this quadratic equation using the quadratic formula \( u = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \), where \( a = 1 \), \( b = -2y \), and \( c = 1 \):
+                    \[\begin{aligned}
+                    u &= \frac{2y \pm \sqrt{(2y)^2 - 4 \cdot 1 \cdot 1}}{2 \cdot 1} \\
+                    u &= \frac{2y \pm \sqrt{4y^2 - 4}}{2} \\
+                    u &= \frac{2y \pm 2\sqrt{y^2 - 1}}{2} \\
+                    u &= y \pm \sqrt{y^2 - 1}
+                    \end{aligned}\]
+                    Since \( u = e^x \) and \( e^x \) is always positive, we select the positive root:
+                    \[
+                    e^x = y + \sqrt{y^2 - 1}
+                    \]
+                    Take the natural logarithm of both sides to solve for \( x \):
+                    \[
+                    x = \ln(y + \sqrt{y^2 - 1})
+                    \]
+                    Therefore, the inverse function of \( f(x) = \frac{e^x + e^{-x}}{2} \) is:
+                    \[
+                    f^{-1}(y) = \ln(y + \sqrt{y^2 - 1})
+                    \]
+                    \[
+                    \cosh^{-1}(x) = \log(x + \sqrt{x^2 - 1})
+                    \]
+                    We can plot this graph as well on the special 3D graph mentioned above.
+                </p>
+                <p>
+                    The derivative of \(\cos^{-1}(x)\) and \(\log(x + \sqrt{x^2 - 1})\) are the same, except that one is multiplied by \(i\) due to the change of plane (from the real-real \(XY\)-plane to the real-imaginary \(ZY\)-plane). This is because essentially the base formula is the same, just that the angle transitions from linear to rotational (real to imaginary).
+                </p>
+            </section>
+            
+            <section id="geometric-interpretation-2">
+                <h2>Geometric Interpretation</h2>
+                <p>Let's examine the geometric implications of the slopes derived from our proof:</p>
+
+                <h3>Slope of \(\cos^{-1}(x)\)</h3>
+                <p>
+                    At any point on the curve \(\cos^{-1}(x)\), the slope represents the rate of change of the angle formed between the curve and the \( x \)-axis. Mathematically, the slope of \(\cos^{-1}(x)\) is given by \(\frac{1}{\sqrt{1 - x^2}} = \frac{i}{\sqrt{x^2 - 1}}\). Geometrically, this slope introduces an imaginary component, indicating a rotation in the complex plane. It suggests that the curve \(\cos^{-1}(x)\) has a complex relationship with the \( x \)-axis, where the imaginary component represents a rotation.
+                </p>
+
+                <h3>Slope of \(-\cos^{-1}(x)\)</h3>
+                <p>
+                    At any point on the curve \(-\cos^{-1}(x)\), the slope represents the rate of change of the angle formed between the curve and the \( x \)-axis. Mathematically, the slope of \(-\cos^{-1}(x)\) is given by \(\frac{-1}{\sqrt{1 - x^2}} = \frac{i}{\sqrt{x^2 - 1}}\). Geometrically, this slope introduces an imaginary component, indicating a rotation in the complex plane. It suggests that the curve \(-\cos^{-1}(x)\) has a complex relationship with the \( x \)-axis, where the imaginary component represents a rotation.
+                </p>
+                <p>
+                    When taking the inverse cosine function, the domain changes from \((-1,1)\) to \(\mathbb{R} \setminus (-1,1)\). Thus, for \(-\cos^{-1}(x)\) to be defined, \(x\) must have a value beyond \(-1\) and \(1\), implicating hyperbolic trigonometry. The cosine of a complex number \(x\), where \(x\) is imaginary, yields real values greater than \(1\), illustrating a connection to hyperbolic functions.
+                </p>
+
+                <h3>Slope of \(\log(|x + \sqrt{x^2 - 1}|)\)</h3>
+                <p>
+                    Similarly, at any point on the curve \(\log(|x + \sqrt{x^2 - 1}|)\), the slope indicates the rate of change of the curve with respect to the \( x \)-axis. The slope of \(\log(|x + \sqrt{x^2 - 1}|)\) is \(\frac{1}{\sqrt{x^2 - 1}}\), which is purely real. Geometrically, this slope represents a change along the \( x \)-axis without any rotation in the complex plane.
+                </p>
+
+                <h3>Relationship between slopes</h3>
+                <p>
+                    Observing that the slope of \(\cos^{-1}(x)\) is equal to \( i \) times the slope of \(\log(|x + \sqrt{x^2 - 1}|)\), i.e., \(\text{Slope}(\cos^{-1}(x)) = i \times \text{Slope}(\log(|x + \sqrt{x^2 - 1}|))\), we infer that multiplying the real slope by \( i \) introduces a rotation. Multiplying by \( i \) essentially means rotating the curve by \(\frac{\pi}{2}\) radians in the complex plane.
+                </p>
+                
+                <h3>Geometric Interpretation</h3>
+                <p>
+                    Visualizing the graph, with the \( x \)-axis representing all real inputs, the \( y \)-axis representing real outputs, and the \( z \)-axis representing imaginary outputs, we can understand the behavior of the functions. The multiplication by \( i \) causes a rotation of \(\frac{\pi}{2}\) radians, which means that the graph formed on the \( xy \)-plane (real inputs and outputs) is rotated by \( 90 \) degrees to form the graph on the \( xz \)-plane (real inputs and imaginary outputs). This rotation reflects the intricate relationship between exponential, trigonometric, and complex functions, as encapsulated by Euler's formula, \( e^{i\theta} = \cos(\theta) + i\sin(\theta) \).
+                </p>
+            </section>
+            
+            <section id="conclusion">
+                <h2>Conclusion</h2>
+                <p>
+                    The paper concludes by summarizing the main result of the proof and its significance in the broader context of mathematics. Potential applications and avenues for future research are suggested, emphasizing the importance of continued exploration in this area.
+                </p>
+            </section>
+
+            <section id="references" class="references">
+                <h2>References</h2>
+                <p id="ref-boyajian">[Boyajian] Boyajian, A. (Year). <em>Title of Work on Linear and Rotational Angles</em>. Publisher. (Placeholder for citation).</p>
+            </section>
+        </article>
+    </main>
+
+</body>
+</html>

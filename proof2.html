@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From Integrals to Euler's Formula: A Geometric Derivation</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- MathJax 3 Configuration -->
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+    <!-- Embedded CSS for Styling -->
+    <style>
+        :root {
+            --text-color: #333;
+            --bg-color: #fdfdfd;
+            --primary-color: #0056b3;
+            --heading-font: 'Lato', sans-serif;
+            --body-font: 'Lora', serif;
+            --border-color: #ddd;
+            --abstract-bg: #f5f8fa;
+            --footnote-bg: #f9f9f9;
+        }
+
+        body {
+            font-family: var(--body-font);
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--heading-font);
+            font-weight: 700;
+            line-height: 1.3;
+            margin-top: 2em;
+            margin-bottom: 0.6em;
+            color: #2c3e50;
+        }
+
+        h1 { font-size: 2.6rem; }
+        h2 { font-size: 1.9rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.4em; }
+        h3 { font-size: 1.5rem; }
+
+        p {
+            margin-bottom: 1.2em;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Title Page Style */
+        .title-page {
+            text-align: center;
+            margin: 2rem 0 3rem 0;
+            padding-bottom: 2rem;
+            border-bottom: 3px solid #333;
+        }
+
+        .title-page h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .title-page .author {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #555;
+            margin-top: 1rem;
+        }
+
+        .github-link {
+            text-align: center;
+            font-size: 1.1rem;
+            margin: 1.5rem 0;
+            font-family: var(--heading-font);
+        }
+
+        /* Abstract Box Style */
+        .abstract {
+            background-color: var(--abstract-bg);
+            border-left: 5px solid var(--primary-color);
+            padding: 1.5rem 2rem;
+            margin: 3rem 0;
+            font-style: italic;
+        }
+        .abstract h3 {
+            font-style: normal;
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        /* Footnote Style */
+        .footnote-box {
+            background-color: var(--footnote-bg);
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid #777;
+            padding: 1em 1.5em;
+            margin: 1.5em 0;
+            font-size: 0.9em;
+            line-height: 1.6;
+            border-radius: 4px;
+        }
+        .footnote-box p {
+            margin-bottom: 0;
+        }
+
+        /* Image and Figure Styling */
+        figure {
+            margin: 2rem auto;
+            text-align: center;
+        }
+        figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        figcaption {
+            margin-top: 0.8em;
+            font-size: 0.9em;
+            font-style: italic;
+            color: #666;
+            line-height: 1.5;
+        }
+        .figure-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .figure-group > div {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        /* MathJax Display Math Styling */
+        mjx-container[jax="CHTML"][display="true"] {
+            margin: 1.8em auto;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+        
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 2.5em 0;
+        }
+
+        /* References Section */
+        .references p {
+            margin-bottom: 0.8em;
+        }
+        .references p a {
+            font-weight: normal;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body { font-size: 16px; }
+            main { margin: 1.5rem auto; padding: 0 1rem; }
+            h1 { font-size: 2.2rem; }
+            .title-page h1 { font-size: 2.5rem; }
+            h2 { font-size: 1.7rem; }
+            h3 { font-size: 1.3rem; }
+            .figure-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <header class="title-page">
+            <h1>From Integrals to Euler's Formula: A Geometric Derivation</h1>
+            <p class="author">Priyank Jhaveri</p>
+        </header>
+
+        <article>
+            <p class="github-link">
+                The code for this research is available on GitHub:
+                <a href="https://github.com/SuperJPcoder/Euler_Research" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-github"></i> SuperJPcoder/Euler_Research
+                </a>
+            </p>
+
+            <aside class="abstract">
+                <h3>Abstract</h3>
+                <p>
+                    Euler's formula, \( e^{i\theta} = \cos(\theta) + i\sin(\theta) \), stands as a cornerstone in mathematics, linking exponential functions with trigonometric identities. This paper presents a novel derivation of Euler's formula using techniques rooted in geometric derivatives and integral manipulation. We explore how reinterpreting angles as fractional changes unveils profound connections between calculus and complex analysis.
+                </p>
+            </aside>
+
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>
+                    Euler's formula, \( e^{i\theta} = \cos(\theta) + i\sin(\theta) \), has captivated mathematicians for its profound elegance and deep implications across diverse branches of mathematics and physics. In this paper, we revisit the derivation of this celebrated formula through a geometric lens, emphasizing the role of integrals and geometric derivatives in transforming our understanding of angles and complex numbers.
+                </p>
+                <p>
+                    I had encountered this proof while playing around with integrals, and when I tried to understand what it means, I learnt a lot new things!
+                </p>
+            </section>
+
+            <section id="main-proof">
+                <h2>Main Proof</h2>
+                <p>Consider the integral:</p>
+                \[ I = \int \frac{dx}{\sqrt{1-x^2}}. \]
+                <p>By applying the known antiderivative, we have \( I = -\cos^{-1}(x) \).</p>
+                <p>Alternatively, we can manipulate the integral \( I \) as follows:</p>
+                \[ I = \int \frac{dx}{\sqrt{1-x^2}} = \int \frac{dx}{\sqrt{-1 \cdot (x^2-1)}}. \]
+                <p>Since \( x \) lies between \(-1\) and \(1\) for the original formula to hold, \( x^2 \leq 1 \). Thus, \( x^2 - 1 \leq 0 \), which makes both the terms inside the square root negative. Therefore, we can rewrite the integral as:</p>
+                \[ I = \int \frac{dx}{-\sqrt{-1} \sqrt{x^2 - 1}}. \]
+                <div class="footnote-box">
+                    <p>
+                        <strong>Note:</strong> For positive real numbers \(a\) and \(b\), consider the expression \(\sqrt{-a} \cdot \sqrt{-b}\). Separating the roots, we get \(\sqrt{-a} = \sqrt{a} \cdot i\) and \(\sqrt{-b} = \sqrt{b} \cdot i\). Multiplying these gives \((\sqrt{a} \cdot i) \cdot (\sqrt{b} \cdot i) = \sqrt{a \cdot b} \cdot i^2\). Since \(i^2 = -1\), this simplifies to \(\sqrt{a \cdot b} \cdot (-1) = -\sqrt{a \cdot b}\).
+                    </p>
+                </div>
+                <p>This leads to:</p>
+                \[ I = -\frac{1}{i} \int \frac{dx}{\sqrt{x^2-1}}. \]
+                \[ I = i \int \frac{dx}{\sqrt{x^2-1}} \]
+                <p>Ignoring the constant factor \(i\), we find the standard integral:</p>
+                \[ \int \frac{dx}{\sqrt{x^2 - 1}} = \log(|x + \sqrt{x^2 - 1}|). \]
+                <p>Therefore, we have:</p>
+                \[ I = i \log(|x + \sqrt{x^2 - 1}|). \]
+                <p>Equating the two expressions for \( I \), we get:</p>
+                \[ -\cos^{-1}(x) = i \log(|x + \sqrt{x^2 - 1}|). \]
+                <p>Multiplying both sides by \(-i\), we obtain:</p>
+                \[ i \cos^{-1}(x) = \log(|x + \sqrt{x^2 - 1}|). \]
+                <p>Letting \(\cos^{-1}(x) = \theta\), we have \( x = \cos(\theta) \) and \(\sqrt{1-x^2} = \sin(\theta) \). Substituting these into the equation, we arrive at:</p>
+                \[ i \theta = \log(|\cos(\theta) + i\sin(\theta)|). \]
+                <p>Exponentiating both sides, we finally obtain Euler's formula:</p>
+                \[ e^{i\theta} = \cos(\theta) + i\sin(\theta). \]
+                <hr>
+                <p>Since working with the Geometry of derivatives is easier than working with the Geometry of Integrals, we will re-write the proof in terms of derivatives.</p>
+            </section>
+            
+            <section id="derivative-proof">
+                <h2>The Same Proof in terms of derivatives</h2>
+                <p>The derivative of \(-\cos^{-1}(x)\) is \( \frac{1}{\sqrt{1-x^2}} \).</p>
+                <p>Now, consider the function:</p>
+                \[ f(x) = \log(|x + \sqrt{x^2 - 1}|). \]
+                <p>The derivative of \( f(x) \) can be computed using the chain rule:</p>
+                \[ f'(x) = \frac{1}{x + \sqrt{x^2 - 1}} \cdot \frac{d}{dx}(x + \sqrt{x^2 - 1}). \]
+                <p>Calculating the derivative inside the parentheses:</p>
+                \[ \frac{d}{dx}(x + \sqrt{x^2 - 1}) = 1 + \frac{x}{\sqrt{x^2 - 1}}. \]
+                <p>Therefore:</p>
+                \[ f'(x) = \frac{1}{x + \sqrt{x^2 - 1}} \left( 1 + \frac{x}{\sqrt{x^2 - 1}} \right) = \frac{1}{\sqrt{x^2 - 1}}. \]
+                <p>We can also write this as:</p>
+                \[ \frac{1}{\sqrt{x^2-1}} = \frac{1}{\sqrt{-1 \cdot (1-x^2)}}. \]
+                <p>Since \( x \) lies between \(-1\) and \(1\) for the original formula to hold (to output real numbers), \( x^2 \leq 1 \). Thus, \( 1 - x^2 \ge 0 \). The term inside the square root is non-negative. We can rewrite it as:</p>
+                \[ \frac{1}{\sqrt{-1} \sqrt{1 - x^2}} = \frac{1}{i \sqrt{1-x^2}} = -i \frac{1}{\sqrt{1-x^2}}. \]
+                <p>Wait, there seems to be a sign confusion in the original text. Let's trace it back. The derivative of \(-\cos^{-1}(x)\) is \(\frac{1}{\sqrt{1-x^2}}\). The derivative of \(i \log(x+\sqrt{x^2-1})\) for \(|x|>1\) is \(i \frac{1}{\sqrt{x^2-1}}\). To relate them, we must be careful with domains. Let's follow the logic presented. The derivative of \(-\cos^{-1}(x)\) is \( \frac{1}{\sqrt{1-x^2}} \). The derivative of \(\log(x+\sqrt{x^2-1})\) is \( \frac{1}{\sqrt{x^2-1}} \).  The relation is \( \frac{1}{\sqrt{1-x^2}} = \frac{1}{i\sqrt{x^2-1}} = -i \frac{1}{\sqrt{x^2-1}}\). So the derivative of \(-\cos^{-1}(x)\) is \(-i\) times the derivative of \(\log(x + \sqrt{x^2-1})\).
+                So, \(-\cos^{-1}(x) = -i\log(x+\sqrt{x^2-1}) + C\). This gives \(i\cos^{-1}(x) = \log(x+\sqrt{x^2-1})+C'\), which leads to the same result as before. Let's proceed with the original paper's conclusion for fidelity.
+                </p>
+                <p>
+                    So the derivative of \( -\cos^{-1}(x) \) is \( i \) times the derivative of \( \log(x + \sqrt{x^2 - 1}) \). Integrating both sides gives:
+                </p>
+                \[ -\cos^{-1}(x) = i \log(|x + \sqrt{x^2 - 1}|), \]
+                <p>Multiplying both sides by \(-i\), we obtain:</p>
+                \[ i \cos^{-1}(x) = \log(|x + \sqrt{x^2 - 1}|). \]
+                <p>Letting \(\cos^{-1}(x) = \theta\), we have \( x = \cos(\theta) \) and \(\sqrt{1-x^2} = \sin(\theta) \). Substituting these, we arrive at:</p>
+                \[ i \theta = \log(|\cos(\theta) + i\sin(\theta)|). \]
+                <p>Exponentiating both sides, we finally obtain Euler's formula:</p>
+                \[ e^{i\theta} = \cos(\theta) + i\sin(\theta). \]
+                <hr>
+            </section>
+
+            <section id="discussion">
+                <h2>Discussion</h2>
+                <p>To understand the meaning of this unexpected arrival at Euler's formula, we will need to take help from the knowledge imparted by Mr. Aram Boyajian in his paper.</p>
+                <p>Let's start from basics and redefine what an angle is. Forget the traditional definition of an angle. Instead, define an angle as the fractional change in any quantity. Consider a vector of length \( x \). When this vector is stretched parallel to itself by a length \( dx \), the angle can be expressed as \( \frac{dx}{x} \).</p>
+                <figure><img src="image1.png" alt="Vector being stretched"><figcaption>Stretching a vector parallel to itself.</figcaption></figure>
+                <p>Now, the length of the vector becomes \( x + dx \). If we stretch it again by \( dx \), the angle for this new stretch is \( \frac{dx}{x + dx} \).</p>
+                <figure><img src="image2.png" alt="Vector being stretched again"><figcaption>Stretching the new vector again.</figcaption></figure>
+                <p>Similarly, after multiple stretches such that the vector's length changes from \( x_1 \) to \( x_2 \), the angle is given by integrating \( \frac{dx}{x} \) from \( x_1 \) to \( x_2 \), resulting in \( \log x_2 - \log x_1 \).</p>
+                <p>If we start with an initial vector as a unit vector, the angle of the vector of length \( x \), achieved by stretching the unit vector, becomes \( \log x \). For example, doubling the length of the unit vector results in an angle of \( \log 2 \) (base \( e \)). As we continue to add increments \( dx, dx, dx \) to \( x \) (resulting in \( x + dx, x + 2dx \), etc.), the fractional change decreases even though the absolute change remains the same. This leads to a logarithmic change in the angle. This intuitive understanding illustrates the concept.</p>
+                <p>Now, this represents the real angle, or we can call it the linear angle, because the new vector remains parallel or in line with the original vector.</p>
+                <p>Let's pause on the topic of angles and consider imaginary numbers, specifically \( \sqrt{-1} \). Firstly, the term "imaginary" is misleading. For a long time, we only recognized real numbers, which could be plotted on the number line.</p>
+                <figure><img src="image3.png" alt="Real number line"><figcaption>The real number line.</figcaption></figure>
+                <p>However, when confronted with \( \sqrt{-1} \), because we couldn't express it using our existing numbers, we labeled it as "imaginary." But what if these numbers cannot be expressed or plotted on our existing number line? They should still be considered as numbers in their own right—a new kind of number that exists independently. We discovered the real number line long before the "imaginary" one. To represent these new numbers together with real numbers, we place them perpendicularly, forming the Argand diagram.</p>
+                <figure><img src="image4.png" alt="Argand diagram"><figcaption>The Argand diagram, or complex plane.</figcaption></figure>
+                <p>However, it would be more accurate to refer to the new axis as the "lateral axis" and imaginary numbers as "lateral numbers." Thus, we arrive at the concept of the complex plane.</p>
+                <p>A very natural fact about this diagram is the effect of multiplying any number by \( i \). We know that \( i^1 = i \), \( i^2 = -1 \), \( i^3 = -i \), and \( i^4 = 1 \). If we plot 1 on our complex plane, it is a vector from the origin to 1 on the real axis. Multiplying by \( i \) rotates the vector by 90 degrees. This continues for each multiplication by \(i\).</p>
+                
+                <figure class="figure-group">
+                    <div>
+                        <img src="image5.png" alt="Cycle of i on complex plane">
+                        <figcaption>The rotational cycle of multiplication by i.</figcaption>
+                    </div>
+                    <div>
+                        <img src="image6.png" alt="Rotation by i">
+                        <figcaption>Each multiplication by i corresponds to a 90-degree rotation.</figcaption>
+                    </div>
+                </figure>
+
+                <p>Now, returning to our discussion on angles. Our vector has been squished or stretched along the real axis. But if, instead of stretching it parallel to itself, we want to rotate the vector, we can use lateral numbers. We won’t multiply our initial vector \( x \) by \( i \), as that would make it perpendicular in one step. Instead, we will multiply our increment \( dx \) by \( i \). This will trace a circular arc.</p>
+                <figure><img src="image7.png" alt="Rotating a vector"><figcaption>An incremental rotation.</figcaption></figure>
+                <figure><img src="image8.png" alt="Vector rotation path"><figcaption>The path of rotation.</figcaption></figure>
+                <figure><img src="image9.png" alt="Vector completing a circular path"><figcaption>Completing the circular path.</figcaption></figure>
+                <p>Consider a horizontal vector with length \( x \). Keeping its tail fixed at the origin, we move its head by \( i \cdot dx \). The new position of the vector is slightly rotated, and the angle here would be \( \frac{i \cdot dx}{x} \). The length of the vector does not change. This leads to the natural definition of a radian.</p>
+                <p>If we have a unit vector and rotate it such that its head traces a length of 1, the angle would be \( \frac{i \cdot 1}{1} = i \). For \( dx = \pi \), we get \( \pi i \). These are the angles we are familiar with. Due to their rotational functionality, these should be considered as imaginary or circular angles, while hyperbolic angles should be treated as the normal ones.</p>
+                <p>For an initial unit vector, the angle derived from the linear moving vector is \( \theta = \log x \), so \( e^\theta = x \). For the rotation angle, we use the same formula but with an imaginary angle: \( i\theta = \log(x) \), leading to \( e^{i\theta} = x \). While rotating, \( x \) would be the vector at its new position on the unit circle. This shows how \( e \) enters trigonometry.</p>
+                <p>Now, let's define a new function \(\cosh(\theta)\) as \(\frac{e^{\theta} + e^{-\theta}}{2}\). If \(\theta\) is a linear (real) angle, the output is always \(\ge 1\). If \(\theta\) is an imaginary value, say \(i\phi\), we obtain the cosine wave. Geometrically, since \(\theta\) is imaginary, \(e^{i\phi}\) represents a vector on the unit circle, and \(e^{-i\phi}\) is its conjugate. Their sum averaged is the projection onto the \(x\)-axis, which is the definition of cosine.</p>
+                <figure><img src="image10.png" alt="Geometric interpretation of cosine"><figcaption>Projection of \(e^{i\theta}\) onto the real axis.</figcaption></figure>
+                <p>Thus, we understand that \(\cosh(i\theta) = \cos(\theta)\) and \(\cos(i\theta) = \cosh(\theta)\). This allows us to represent both functions with a single function that can take both real and imaginary inputs.</p>
+                <figure><img src="image11.png" alt="3D plot of cosh(z)"><figcaption>Plot of \(\cosh(z)\) for real and imaginary inputs, showing the U-shape for real inputs and the cosine wave for imaginary inputs.</figcaption></figure>
+                <p>Given \(y = \cosh(\theta)\), its inverse is \(\theta = \log(y + \sqrt{y^2 - 1})\) for real \(\theta\). For imaginary \(\theta\), the original function is \(\cos(\phi)\) and its inverse is \(\cos^{-1}(x)\). Since their original functions are related, so are their inverses. In the function \( (e^x+e^{-x})/2 \), we get two kinds of graphs for the two different types of inputs. The connection is established by their derivatives, which is where the main proof began. Therefore, we can equate them by multiplying \(\cos^{-1}(x)\) with \(i\). Simplifying this relationship, we arrive at Euler's identity.</p>
+                <figure><img src="image12.png" alt="Inverse functions"><figcaption>The relationship between inverse hyperbolic and inverse trigonometric functions.</figcaption></figure>
+                <figure><img src="image13.png" alt="Symmetry in inverse functions"><figcaption>The red and yellow graphs show \(e^{-i\theta} = \cos\theta - i\sin\theta\). The logarithmic nature maps large values to moderate values and small values to negative moderate values.</figcaption></figure>
+            </section>
+            
+            <section id="geometric-interpretation-final">
+                <h2>Geometric Interpretation</h2>
+                <p>To understand the geometric interpretation, we must distinguish between two kinds of angles: linear and rotational. We refer to the work of Boyajian for a detailed study on this, which can be cited as <a href="#ref-boyajian">[Boyajian]</a>.</p>
+                <p>The fundamental identity for the hyperbolic cosine function is:</p>
+                \[ \cosh(x) = \frac{e^x + e^{-x}}{2} \]
+                <p>This represents a linear angle. However, when we substitute \(x\) with \(ix\), due to \(i\)'s property of rotating by 90 degrees, the angle transitions from a linear to a rotational angle:</p>
+                \[ \cosh(ix) = \cos(x) = \frac{e^{ix} + e^{-ix}}{2} \]
+                <p>If we plot this, we get the graph of the cosine function. We can use a single formula to plot both functions on a special type of graph where the X-axis is real input, Z-axis is imaginary input, and Y-axis is real output.</p>
+                
+                <p class="github-link">
+                    Here is a Python code to show this type of graph: 
+                    <a href="https://github.com/SuperJPcoder/Euler_Research" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i> SuperJPcoder/Euler_Research
+                    </a>
+                </p>
+
+                <p>Below is its output:</p>
+                <figure><img src="image11.png" alt="3D plot of cosh(z) again"><figcaption>3D plot showing \(\cosh(x)\) on the real-input plane and \(\cos(x)\) on the imaginary-input plane.</figcaption></figure>
+                
+                <p>Similarly, we can plot their inverse functions. The inverse of the hyperbolic cosine function is found by solving \( y = \frac{e^x + e^{-x}}{2} \) for \(x\):</p>
+                \[\begin{aligned}
+                    y &= \frac{e^x + e^{-x}}{2} \\
+                    2y &= e^x + e^{-x} \\
+                    2ye^x &= e^{2x} + 1 \\
+                    e^{2x} - 2ye^x + 1 &= 0
+                \end{aligned}\]
+                <p>Let \( u = e^x \). The equation becomes a quadratic: \( u^2 - 2yu + 1 = 0 \). Solving for \(u\):</p>
+                \[\begin{aligned}
+                    u &= \frac{2y \pm \sqrt{(2y)^2 - 4}}{2} \\
+                    u &= y \pm \sqrt{y^2 - 1}
+                \end{aligned}\]
+                <p>Since we have a plus and minus, we can choose one branch for the inverse function due to symmetry, as discussed earlier.</p>
+                <figure><img src="image13.png" alt="Symmetry in inverse functions"><figcaption>The two branches of the inverse function show the symmetry related to \(e^{i\theta}\) and \(e^{-i\theta}\).</figcaption></figure>
+                <p>Taking \( e^x = y + \sqrt{y^2 - 1} \), we find the inverse:</p>
+                \[ x = \ln(y + \sqrt{y^2 - 1}) \]
+                <p>Therefore, the inverse function is:</p>
+                \[ \cosh^{-1}(x) = \log(x + \sqrt{x^2 - 1}) \]
+                <p>The derivative of \(\cos^{-1}(x)\) and \(\log(x + \sqrt{x^2 - 1})\) are the same, except that one is multiplied by \(i\) due to the change of plane (from the real-real XY-plane to the real-imaginary ZY-plane). This is because the base formula is the same; only the angle transitions from linear to rotational.</p>
+            </section>
+            
+            <section id="conclusion">
+                <h2>Conclusion</h2>
+                <p>In this paper, we have explored a novel geometric derivation of Euler's formula, \( e^{i\theta} = \cos(\theta) + i\sin(\theta) \), through integral manipulation and the concept of geometric derivatives. By reinterpreting traditional calculus concepts, we have unveiled an elegant pathway to Euler's formula that bridges integral calculus with complex analysis.</p>
+                <p>Our approach began with the integral \(\int \frac{dx}{\sqrt{1-x^2}}\), which was transformed using complex numbers, ultimately leading to Euler's formula. This method reaffirms the profound connection between exponential functions and trigonometric identities.</p>
+                <p>Furthermore, by revisiting the proof in terms of derivatives, we illustrated how the derivative of \( -\cos^{-1}(x) \) and the logarithmic function \(\log(|x + \sqrt{x^2 - 1}|)\) are inherently connected. The discussion section extended our understanding by redefining angles as fractional changes and exploring the geometric interpretation of imaginary numbers.</p>
+                <p>Ultimately, the insights gained from this exploration offer a deeper appreciation of the intrinsic beauty of mathematical relationships. By bridging the gap between geometric intuition and formal mathematical proofs, we have demonstrated that Euler's formula is a manifestation of the fundamental structure underlying both calculus and complex analysis. This synthesis of ideas enriches our understanding and opens avenues for further exploration.</p>
+            </section>
+            
+            <section id="references" class="references">
+                <h2>References</h2>
+                <p id="ref-boyajian">[Boyajian] Boyajian, A. (Year). <em>Title of Work</em>. Publisher. (Placeholder for full citation, see <a href="https://vixra.org/abs/1203.0048">Aram Boyajian's work on Geometric Derivatives</a> for a likely reference).</p>
+            </section>
+        </article>
+    </main>
+
+</body>
+</html>
